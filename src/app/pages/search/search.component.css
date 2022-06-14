@@ -1,0 +1,15 @@
+.example-form {
+    height: 70px;
+    background-color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 auto;
+  }
+  
+  .example-full-width {
+    height: 50px;
+    background-color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 auto;
+  }
