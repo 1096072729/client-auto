@@ -8,9 +8,14 @@ import { User } from 'src/app/entitys/user';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  goods: string[] = ['a','b','c','d'];
+  ngOnInit() {
+    
   }
+
+
+
+  
   // myControl = new FormControl();
   // options: user[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
   // filteredOptions?: Observable<user[]>;

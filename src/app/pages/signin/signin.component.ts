@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router, } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { User, userOne } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SigninComponent implements OnInit {
 
   user: User = userOne;
   signUpform: FormGroup;
@@ -23,10 +23,8 @@ export class SignUpComponent implements OnInit {
     public router: Router) {
     this.signUpform = this.formBuilder.group({
       email: ['', Validators.email],
-      name: ['', [Validators.minLength(2), Validators.maxLength(8)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.minLength(6), Validators.maxLength(20)]],
-      birthday: [''],
+
 
       // email: ['',[Validators.email]],
       // password: ['',[Validators.minLength(6),Validators.maxLength(20)]],
@@ -42,45 +40,38 @@ export class SignUpComponent implements OnInit {
 
 
 
+
+
+
   submit() {
 
     if (this.signUpform.get('email')?.errors) {
       this.error = 'email输入不正确'
       return;
     }
-    if (this.signUpform.get('name')?.errors) {
-      this.error = '昵称输入不正确'
-      return;
-    }
+
     if (this.signUpform.get('password')?.errors) {
-      this.error = 'password输入格式不正确'
-      return;
-    }
-    console.log(this.signUpform.get('password')?.value + '----' + this.signUpform.get('confirmPassword')?.value)
-    if (this.signUpform.get('password')?.value !== this.signUpform.get('confirmPassword')?.value) {
-      this.error = '密码和确认密码必须相同'
+      this.error = 'password输入不正确'
       return;
     }
 
     this.error = ''
 
     this.user.email = this.signUpform.get('email')?.value
-    this.user.name = this.signUpform.get('name')?.value
     this.user.password = this.signUpform.get('password')?.value
-    this.user.birthday = this.signUpform.get('birthday')?.value
 
 
-    this.httpService.createUser(this.user).subscribe(
+    this.httpService.signIn(this.user).subscribe(
       {
         next: data => {
           this.error = '';
-          localStorage.setItem('user', data.email);
           const id = data.id as number;
           localStorage.setItem('userid', id.toString());
+          this.createNotification('success');
           this.router.navigate(['',id])
         },
         error: () => {
-          this.error = '账号重复';
+          this.error = '账号出错';
         }
       }
 
@@ -96,5 +87,4 @@ export class SignUpComponent implements OnInit {
       '欢迎您使用自动发卡平台'
     );
   }
-
 }

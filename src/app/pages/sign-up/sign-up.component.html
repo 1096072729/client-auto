@@ -1,16 +1,16 @@
 <div id="signup">
 
   <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signupformGroup">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline"   >
       <mat-label>输入你的邮箱</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="email" required>
+      <input matInput #email placeholder="pat@example.com" formControlName="email"  required >
       <mat-error *ngIf="signUpform.get('email')!.errors?.['required']">email不为空</mat-error>
       <mat-error *ngIf="signUpform.get('email')!.errors?.['email']">必须为email格式</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>输入你的昵称</mat-label>
-      <input matInput placeholder="asdyth" formControlName="name" required>
+      <input matInput #name  placeholder="asdyth" formControlName="name" required ngModel >
       <mat-error *ngIf="signUpform.get('name')!.errors?.['required']">昵称必须不为空</mat-error>
       <mat-error *ngIf="signUpform.get('name')!.errors?.['minlength']">昵称必须大于2位</mat-error>
       <mat-error *ngIf="signUpform.get('name')!.errors?.['maxlength']">昵称必须小于8位</mat-error>
@@ -19,7 +19,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>输入密码</mat-label>
-      <input matInput id="password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <input matInput #password [type]="hide ? 'password' : 'text'" formControlName="password" required>
      
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -27,11 +27,12 @@
       <mat-error *ngIf="signUpform.get('password')!.errors?.['required']">密码必须不为空</mat-error>
       <mat-error *ngIf="signUpform.get('password')!.errors?.['minlength']">密码必须大于6位</mat-error>
       <mat-error *ngIf="signUpform.get('password')!.errors?.['maxlength']">密码必须小于20位</mat-error>
+      
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>确认密码</mat-label>
-      <input matInput [type]="confirmHide ? 'password' : 'text'" formControlName="confirmPassword" required>
+      <input matInput #confirmPassword [type]="confirmHide ? 'password' : 'text'" formControlName="confirmPassword" required >
      
       <button mat-icon-button matSuffix (click)="confirmHide = !confirmHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -54,7 +55,11 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
+    
+    <span class="alerterror">{{error}}</span>
 
+
+<button [routerLink]="[ '/signin']"  mat-stroked-button appearance="outline" color="primary" type="submit" >已有账号？直接进行登陆</button>
     <button  mat-raised-button appearance="outline" color="primary" type="submit" >注册</button>
   </form>
   

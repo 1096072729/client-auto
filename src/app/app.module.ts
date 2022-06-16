@@ -35,7 +35,28 @@ import { SearchComponent } from './pages/search/search.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HttpService } from './httpserver.service';
 import { HttpClientModule } from '@angular/common/http';
-import { SigninComponent } from './signin/signin.component';
+import { BodyComponent } from './pages/body/body.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { SearchheaderComponent } from './pages/searchheader/searchheader.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { zh_CN } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import { DetailedComponent } from './pages/detailed/detailed.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { PersonalCenterComponent } from './pages/personal-center/personal-center.component';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+registerLocaleData(zh);
+
 
 @NgModule({
   declarations: [
@@ -44,8 +65,11 @@ import { SigninComponent } from './signin/signin.component';
     SignUpComponent,
     HeaderComponent,
     SearchComponent,
+    BodyComponent,
     SigninComponent,
-
+    SearchheaderComponent,
+    DetailedComponent,
+    PersonalCenterComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +78,7 @@ import { SigninComponent } from './signin/signin.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+  
   
     MatFormFieldModule,
     MatInputModule,
@@ -73,10 +98,20 @@ import { SigninComponent } from './signin/signin.component';
     MatSortModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatAutocompleteModule
-    
+    MatAutocompleteModule,
+    NzCarouselModule,
+    NzGridModule,
+    NzInputNumberModule,
+    NzButtonModule,
+    NzIconModule,
+    NzModalModule,
+    NzAvatarModule,
+    NzDividerModule,
+    NzAlertModule,
+    NzNotificationModule,
+    NzDropDownModule,
   ],
-  providers: [HttpService],
+  providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

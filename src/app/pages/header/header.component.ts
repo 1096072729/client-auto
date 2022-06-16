@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User, userOne } from 'src/app/entitys/user';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+user: User=userOne;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  cancellation(){
+    
   }
 
 }

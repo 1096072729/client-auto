@@ -1,0 +1,57 @@
+.show{
+    padding-top:30px
+}
+
+.classification{
+   width: 300px;
+
+}
+.AutoPlay{
+    flex: 1;
+}
+
+[nz-carousel-content] {
+    border-radius: 10px;
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #364d79;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  [nz-carousel-content] img {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    margin-bottom: 0;
+    user-select: none;
+  }
+
+
+h2{ display: inline;}
+
+.like{
+    padding-top:50px;
+}
+
+.likeheader{
+    background-color: #f83c3d;
+    width:100%;
+}
+
+.likeone{
+    display:flex;
+
+    padding-top:5px;
+}
+.example-card {
+    width:29% ;
+    border-radius: 30px;
+    margin:20px 2%
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

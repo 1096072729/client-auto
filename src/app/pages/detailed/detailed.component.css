@@ -1,0 +1,81 @@
+.detailed{
+    padding-top:30px;
+    height: 700px;
+    display:flex;
+}
+
+.autoimg{
+    padding-top:10px;
+    margin: 5px;
+    /* border: 1px solid #364d79; */
+    /* background-color: rgb(164, 37, 37); */
+    width: 400px;
+}
+
+[nz-carousel-content] {
+    text-align: center;
+    height: 400px;
+    line-height: 160px;
+    background: #a5bfed;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .showimg {
+      width: 400px;
+    margin-bottom: 0;
+    user-select: none;
+  }
+
+.information{
+    margin-left: 10px;
+    line-height: 50px;
+    flex: 1;
+    /* background-color: #91ceb3; */
+}
+
+
+.title{
+    
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+
+.pricelabel{
+    font-size: 10px;
+    color: #999999;
+}
+
+.originalPrice{
+    color: #333333;
+    font-size: 14px;
+    text-decoration:line-through;
+}
+.currentPrice{
+    color: #ff0036;
+    font-weight: bold;
+    font-size: 34px;
+}
+
+.nowPrice{
+    color: #ff0036;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.buy{
+    height: 40px;
+    width: 100%;
+    color:white;
+    background-color: #e5511d;
+   
+}
+
+.follow{
+    height: 40px;
+    width: 100%;
+    color:white;
+    background-color: #ff4400;
+   
+}

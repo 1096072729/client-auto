@@ -1,29 +1,77 @@
-
+<!-- 
 
 <header class="header">
 
-    <div class="button-row-left">
-        <button mat-button >Basic</button>
-        <button mat-button >Primary</button>
-        <button mat-button >Accent</button>
-        <button mat-button >Warn</button>
-        <!-- <button mat-button disabled>Disabled</button>
-        <a mat-button href="https://www.google.com/" target="_blank">Link</a> -->
-        
-      </div>
+    
 
-      <app-search class="search"></app-search>
+
 
 
       <div class="button-row-right">
         <button mat-button >Basic</button>
         <button mat-button >Primary</button>
         <button mat-button >Accent</button>
-        <button mat-button >Warn</button>
-        <!-- <button mat-button disabled>Disabled</button>
-        <a mat-button href="https://www.google.com/" target="_blank">Link</a> -->
+      
+   
         
       </div>
 
   
+</header> -->
+<!-- <header class="header">
+
+
+  <div nz-row [nzGutter]="16"  nzJustify="end">
+    <div nz-col class="gutter-row" [nzSpan]="2"><div class="inner-box">
+      <span>帮助</span>
+    </div></div>
+    <div nz-col class="gutter-row" [nzSpan]="2"><div class="inner-box">
+<span>我的订单</span>
+      
+    </div></div>
+    <div nz-col class="gutter-row" [nzSpan]="2"><div class="inner-box">
+<span>消息</span>
+
+    </div></div>
+    
+    <div nz-col class="gutter-row" [nzSpan]="2"><div class="inner-box">
+      <span>{{user.name}}</span>
+      <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+    </div></div>
+  
+  </div>
+
+
+
+
+
+</header> -->
+
+<header class="header">
+  <div class="button-row-left">
+    <button mat-button >Basic</button>
+    <button mat-button >Primary</button>
+    <button mat-button >Accent</button>
+    <button mat-button >Warn</button>
+
+    
+  </div>
+
+  <div class="button-row-right" >
+    <button mat-button nz-dropdown [nzDropdownMenu]="menu" >{{user.name}}
+
+      <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ></nz-avatar>
+    </button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item >重新登陆</li>
+        <li nz-menu-item (click)="cancellation()">注销</li>
+        <li nz-menu-item routerLink="/personalcenter">个人空间</li>
+      </ul>
+    </nz-dropdown-menu>
+    <button mat-button>最新消息</button>
+    <button mat-button>我的订单</button>
+    <button mat-button>帮助</button>
+  </div>
+
 </header>

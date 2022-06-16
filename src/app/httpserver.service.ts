@@ -15,9 +15,15 @@ export class HttpService {
 
   }
 
-  createUser(user?:  Partial<User>): Observable<User> {
+  createUser(user: User): Observable<User> {
     const url = environment.apiBaseUrl +'auth/'+ 'signup';
-    console.log('submit');
+    console.log('createUser');
+    return this.httpclient.post<User>(url, user);
+  }
+
+  signIn(user: User): Observable<User> {
+    const url = environment.apiBaseUrl +'auth/'+ 'signin';
+    console.log('signin');
     return this.httpclient.post<User>(url, user);
   }
 }

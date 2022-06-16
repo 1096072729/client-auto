@@ -1,0 +1,32 @@
+<div id="signin">
+
+    <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signinformGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>输入你的邮箱</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email" required>
+        <mat-error *ngIf="signUpform.get('email')!.errors?.['required']">email不为空</mat-error>
+        <mat-error *ngIf="signUpform.get('email')!.errors?.['email']">必须为email格式</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>输入密码</mat-label>
+        <input matInput id="password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+       
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signUpform.get('password')!.errors?.['required']">密码必须不为空</mat-error>
+        <mat-error *ngIf="signUpform.get('password')!.errors?.['minlength']">密码必须大于6位</mat-error>
+        <mat-error *ngIf="signUpform.get('password')!.errors?.['maxlength']">密码必须小于20位</mat-error>
+      </mat-form-field>
+  
+     
+  
+      <span class="alerterror">{{error}}</span>
+      
+  <button [routerLink]="[ '/signup']"  mat-stroked-button appearance="outline" color="primary" type="submit" >没有账号？马上注册</button>
+      <button  mat-raised-button appearance="outline" color="primary" type="submit" >登陆</button>
+    </form>
+    
+  
+  </div>
