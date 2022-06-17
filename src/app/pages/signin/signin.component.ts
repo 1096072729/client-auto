@@ -61,7 +61,7 @@ export class SigninComponent implements OnInit {
     this.user.password = this.signUpform.get('password')?.value
 
 
-    this.httpService.signIn(this.user).subscribe(
+    this.httpService.userSignIn(this.user).subscribe(
       {
         next: data => {
           this.error = '';
@@ -83,14 +83,16 @@ export class SigninComponent implements OnInit {
 
   get() {
     console.log(this.user.account)
-    this.httpService.get(this.user).subscribe(
+    this.httpService.userGet(this.user).subscribe(
       {
         next: Userone => {
           this.user = Userone[0];
+          console.log('this.user')
+          console.log(this.user)
           const id = Userone[0].userId as number;
           localStorage.setItem('userid', id.toString());
-          
-          this.router.navigate([''])
+          setTimeout(() =>       this.router.navigate(['']),1000)
+       
         },
         error: Error => {
           console.log(Error)

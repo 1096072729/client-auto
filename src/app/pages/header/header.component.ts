@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { User, userOne } from 'src/app/entitys/user';
+import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
 import { idInterface } from 'src/app/interfaces/id';
+import { AuthService } from 'src/app/server/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,32 +11,78 @@ import { idInterface } from 'src/app/interfaces/id';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-user: User={};
-  constructor(private httpService: HttpService) { }
+  @Output() user?: User = {};
+  constructor(private httpService: HttpService,
+    public router: Router,
+  ) { 
+  
+
+  }
 
   ngOnInit(): void {
+
+    this.updateUser()
   }
 
 
-  cancellation(){
-    const id:idInterface={id: parseInt(localStorage.getItem('userid') as string) };
-    if(!id){
-      return;
+  updateUser() {
+    this.httpService.userWhoAmI().subscribe(
+      {
+        next: data => {
+          console.log('data')
+          console.log(data.user)
+          this.user = data.user
+        },
+        error: error => {
+
+          
+          console.log('not found');
+          
+          console.log(this.user)
+        }
+      }
+    )
+  }
+  auth() {
+    if (!this.user?.userId) {
+      this.router.navigate(['/signin'])
+      // setTimeout(() =>    this.router.navigate(['/signin']),500)
+  
+    }
+    else {
+      this.router.navigate(["/personalcenter"])
+      // setTimeout(() =>this.router.navigate(["/personalcenter"]),500)
     }
 
-    this.httpService.signOut().subscribe(
-      next => {
-
-    }, 
-    error=>{
-
-    })
-
   }
 
 
-  resignin(){
+  cancellation() {
+  
+    // const id: idInterface = { id: parseInt(localStorage.getItem('userid') as string) };
+    const id=this.user?.userId
+    if (id==-1) {
+      return;
+    }
+    console.log('cancellation')
+    this.httpService.userSignOut().subscribe(
+      data => {
+        console.log(data)
+      }
+    );
+    
+    this.user = {account:'未登录'}
+    // setTimeout(() =>this.router.navigate([""]),500)
+    this.router.navigate([""])
+    
+  }
 
+
+  resignin() {
+    this.httpService.userSignOut();
+    // setTimeout(() => this.router.navigate(['/signin']),500)
+    this.router.navigate(['/signin'])
+    
   }
 
 }

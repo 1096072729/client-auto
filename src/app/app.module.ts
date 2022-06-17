@@ -55,6 +55,7 @@ import { PersonalCenterComponent } from './pages/personal-center/personal-center
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { AuthService } from './server/auth.service';
 registerLocaleData(zh);
 
 
@@ -111,7 +112,7 @@ registerLocaleData(zh);
     NzNotificationModule,
     NzDropDownModule,
   ],
-  providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN }],
+  providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN },AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

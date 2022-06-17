@@ -94,19 +94,18 @@ export class SignUpComponent implements OnInit {
 
   get() {
     console.log(this.user.account)
-    this.httpService.get(this.user).subscribe(
+    this.httpService.userGet(this.user).subscribe(
       {
         next: Userone => {
           this.user = Userone[0];
           const id = Userone[0].userId as number;
           localStorage.setItem('userid', id.toString());
           
-          this.router.navigate([''])
+          setTimeout(() =>  this.router.navigate(['']),1000)
         },
         error: Error => {
           console.log(Error)
           console.log('get出错')
-
         }
       }
     )

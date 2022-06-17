@@ -16,12 +16,12 @@ const routes: Routes = [
   {path:'index',component: IndexComponent,children:[
     {path:'search',component: SearchComponent},
     {path:'detailed',component: DetailedComponent},
-    {path:'body',component: BodyComponent}
+    {path:'',component: BodyComponent}
   ]},
   
   {path:'',component: IndexComponent,children:[
     {path:'search',component: SearchComponent},
-    {path:'detailed',component: DetailedComponent},
+    {path:'detailed/:goodsId',component: DetailedComponent},
     {path:'',component: BodyComponent}
   ]}
 ];

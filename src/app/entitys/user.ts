@@ -7,7 +7,7 @@ account?:string;
 password?:string;
     sex?: string,
     roles?: string,
-    forbidden?: false,
+    forbidden?: boolean,
     telephone?: number,
     grade?: string,
     creditScore?: number,
@@ -17,9 +17,17 @@ password?:string;
 }
 
 export const userOne:User={
-    
-    name:"asd",
-    account:"asd@qq.com",
-    password:"asdasd"
-
+    userId:-1,
+    name:"未登录",
+    account:"未登录",
+    password:"asdasd",
+    sex: '',
+    roles: '',
+    forbidden: false,
+    telephone: -1,
+    grade: '',
+    creditScore: -1,
+    registerDate: new Date(),
+    loginDate: new Date(),
+    comment: ''
 }
