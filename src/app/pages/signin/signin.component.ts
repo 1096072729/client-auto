@@ -22,11 +22,11 @@ export class SigninComponent implements OnInit {
     private notification: NzNotificationService,
     public router: Router) {
     this.signUpform = this.formBuilder.group({
-      email: ['', Validators.email],
+      account: ['',[Validators.minLength(2), Validators.maxLength(8)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(20)]],
 
 
-      // email: ['',[Validators.email]],
+      // account: ['',[Validators.account]],
       // password: ['',[Validators.minLength(6),Validators.maxLength(20)]],
       // confirmPassword: ['',[Validators.minLength(6),Validators.maxLength(20)]],
       // phone: ['',[Validators.length==11]]
@@ -45,19 +45,19 @@ export class SigninComponent implements OnInit {
 
   submit() {
 
-    if (this.signUpform.get('email')?.errors) {
-      this.error = 'email输入不正确'
+    if (this.signUpform.get('account')?.errors) {
+      this.error = '账号名输入不正确'
       return;
     }
 
     if (this.signUpform.get('password')?.errors) {
-      this.error = 'password输入不正确'
+      this.error = '密码输入不正确'
       return;
     }
 
     this.error = ''
 
-    this.user.email = this.signUpform.get('email')?.value
+    this.user.account = this.signUpform.get('account')?.value
     this.user.password = this.signUpform.get('password')?.value
 
 
@@ -65,17 +65,39 @@ export class SigninComponent implements OnInit {
       {
         next: data => {
           this.error = '';
-          const id = data.id as number;
-          localStorage.setItem('userid', id.toString());
+          
+          this.get();
           this.createNotification('success');
-          this.router.navigate(['',id])
+         
         },
         error: () => {
-          this.error = '账号出错';
+          this.error = '账号或密码出错';
         }
       }
 
 
+    )
+  }
+
+  
+
+  get() {
+    console.log(this.user.account)
+    this.httpService.get(this.user).subscribe(
+      {
+        next: Userone => {
+          this.user = Userone[0];
+          const id = Userone[0].userId as number;
+          localStorage.setItem('userid', id.toString());
+          
+          this.router.navigate([''])
+        },
+        error: Error => {
+          console.log(Error)
+          console.log('get出错')
+
+        }
+      }
     )
   }
 

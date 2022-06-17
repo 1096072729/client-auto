@@ -13,13 +13,17 @@ const routes: Routes = [
   {path:'signup',component: SignUpComponent},
   {path:'signin',component: SigninComponent},
   {path:'personalcenter',component: PersonalCenterComponent},
-  {path:'index/:id',component: IndexComponent,children:[
+  {path:'index',component: IndexComponent,children:[
+    {path:'search',component: SearchComponent},
+    {path:'detailed',component: DetailedComponent},
+    {path:'body',component: BodyComponent}
+  ]},
+  
+  {path:'',component: IndexComponent,children:[
     {path:'search',component: SearchComponent},
     {path:'detailed',component: DetailedComponent},
     {path:'',component: BodyComponent}
-  ]},
-  
-  //  {path:'',component:IndexComponent}
+  ]}
 ];
 
 @NgModule({

@@ -1,18 +1,25 @@
 
 
 export interface User{
-id?:number;
-name:string;
-email:string;
+userId?:number;
+name?:string;
+account?:string;
 password?:string;
-birthday?:string;
-
+    sex?: string,
+    roles?: string,
+    forbidden?: false,
+    telephone?: number,
+    grade?: string,
+    creditScore?: number,
+    registerDate?: Date,
+    loginDate?: Date,
+    comment?: string
 }
 
 export const userOne:User={
-    id:1 ,
-    name:'asd',
-    email:'asd@qq.com',
-    password:'asdasd',
+    
+    name:"asd",
+    account:"asd@qq.com",
+    password:"asdasd"
 
 }

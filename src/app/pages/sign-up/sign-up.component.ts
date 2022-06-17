@@ -22,13 +22,13 @@ export class SignUpComponent implements OnInit {
     private notification: NzNotificationService,
     public router: Router) {
     this.signUpform = this.formBuilder.group({
-      email: ['', Validators.email],
+      account: ['', [Validators.minLength(2), Validators.maxLength(8)]],
       name: ['', [Validators.minLength(2), Validators.maxLength(8)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(20)]],
       confirmPassword: ['', [Validators.minLength(6), Validators.maxLength(20)]],
       birthday: [''],
 
-      // email: ['',[Validators.email]],
+      // account: ['',[Validators.account]],
       // password: ['',[Validators.minLength(6),Validators.maxLength(20)]],
       // confirmPassword: ['',[Validators.minLength(6),Validators.maxLength(20)]],
       // phone: ['',[Validators.length==11]]
@@ -44,8 +44,8 @@ export class SignUpComponent implements OnInit {
 
   submit() {
 
-    if (this.signUpform.get('email')?.errors) {
-      this.error = 'email输入不正确'
+    if (this.signUpform.get('account')?.errors) {
+      this.error = 'account输入不正确'
       return;
     }
     if (this.signUpform.get('name')?.errors) {
@@ -64,27 +64,51 @@ export class SignUpComponent implements OnInit {
 
     this.error = ''
 
-    this.user.email = this.signUpform.get('email')?.value
+    this.user.account = this.signUpform.get('account')?.value
     this.user.name = this.signUpform.get('name')?.value
     this.user.password = this.signUpform.get('password')?.value
-    this.user.birthday = this.signUpform.get('birthday')?.value
+
 
 
     this.httpService.createUser(this.user).subscribe(
       {
         next: data => {
+          console.log(data)
+          console.log('注册成功' + this.user.account)
           this.error = '';
-          localStorage.setItem('user', data.email);
-          const id = data.id as number;
-          localStorage.setItem('userid', id.toString());
-          this.router.navigate(['',id])
+          localStorage.setItem('useraccount', this.user.account as string);
+          this.createNotification('success');
+          this.get()
         },
-        error: () => {
+        error: (error) => {
+          console.log(error)
           this.error = '账号重复';
         }
       }
+    )
+
+  }
 
 
+
+
+  get() {
+    console.log(this.user.account)
+    this.httpService.get(this.user).subscribe(
+      {
+        next: Userone => {
+          this.user = Userone[0];
+          const id = Userone[0].userId as number;
+          localStorage.setItem('userid', id.toString());
+          
+          this.router.navigate([''])
+        },
+        error: Error => {
+          console.log(Error)
+          console.log('get出错')
+
+        }
+      }
     )
   }
 

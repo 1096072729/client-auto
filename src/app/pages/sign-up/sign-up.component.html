@@ -1,11 +1,12 @@
-<div id="signup">
+<div id="signup"  >
 
   <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signupformGroup">
     <mat-form-field appearance="outline"   >
-      <mat-label>输入你的邮箱</mat-label>
-      <input matInput #email placeholder="pat@example.com" formControlName="email"  required >
-      <mat-error *ngIf="signUpform.get('email')!.errors?.['required']">email不为空</mat-error>
-      <mat-error *ngIf="signUpform.get('email')!.errors?.['email']">必须为email格式</mat-error>
+      <mat-label>输入你的账户名</mat-label>
+      <input matInput #account placeholder="pat@example.com" formControlName="account"  required >
+      <mat-error *ngIf="signUpform.get('account')!.errors?.['required']">账号名不为空</mat-error>
+      <mat-error *ngIf="signUpform.get('account')!.errors?.['minlength']">账号名必须大于2位</mat-error>
+      <mat-error *ngIf="signUpform.get('account')!.errors?.['maxlength']">账号名必须小于8位</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -44,7 +45,7 @@
     </mat-form-field>
 
 
-    <mat-form-field appearance="outline" class="example-form-field">
+    <!-- <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>选择生日</mat-label>
       <input matInput [matDatepicker]="datepicker" formControlName="birthday">
       <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -54,7 +55,7 @@
           <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
         </mat-datepicker-actions>
       </mat-datepicker>
-    </mat-form-field>
+    </mat-form-field> -->
     
     <span class="alerterror">{{error}}</span>
 

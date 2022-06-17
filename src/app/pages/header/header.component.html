@@ -50,7 +50,7 @@
 <header class="header">
   <div class="button-row-left">
     <button mat-button >Basic</button>
-    <button mat-button >Primary</button>
+    <button mat-button routerLink="/index">首页</button>
     <button mat-button >Accent</button>
     <button mat-button >Warn</button>
 
@@ -58,13 +58,13 @@
   </div>
 
   <div class="button-row-right" >
-    <button mat-button nz-dropdown [nzDropdownMenu]="menu" >{{user.name}}
+    <button mat-button nz-dropdown [nzDropdownMenu]="menu" routerLink="/personalcenter" >{{user.name}}
 
       <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ></nz-avatar>
     </button>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item >重新登陆</li>
+        <li nz-menu-item (click)="resignin()">重新登陆</li>
         <li nz-menu-item (click)="cancellation()">注销</li>
         <li nz-menu-item routerLink="/personalcenter">个人空间</li>
       </ul>
