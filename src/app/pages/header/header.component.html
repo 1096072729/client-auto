@@ -54,7 +54,14 @@
     <button mat-button >Accent</button>
     <button mat-button >Warn</button>
   </div>
-
+<div>
+  <nz-input-group [nzSuffix]="suffixIconSearch" class="search">
+    <input type="text" nz-input placeholder="搜索你感兴趣的东西把" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+</div>
   <div class="button-row-right" >
     <button mat-button nz-dropdown [nzDropdownMenu]="menu"  (click)="auth()">
     {{user?.account}}

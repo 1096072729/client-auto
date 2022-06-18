@@ -58,6 +58,7 @@
 
 
   .header{
+    align-items: center;
     width: 100%;
   display: flex;
   justify-content: space-between;
@@ -72,8 +73,19 @@
 }
 
 .button-row-left .mat-button-base {
+  overflow: hidden;
     float: left;
   margin: 8px 8px 8px 0;
+}
+
+.search{
+
+  width: 100%;
+}
+
+.search input{
+
+  flex: 1;
 }
 
 
@@ -83,7 +95,7 @@
   }
 
   .button-row-right .mat-button-base {
-    
+    overflow: hidden;
       float: right;
     margin: 8px 8px 8px 0;
   }

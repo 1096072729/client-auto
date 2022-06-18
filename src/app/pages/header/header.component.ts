@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
@@ -11,7 +11,11 @@ import { AuthService } from 'src/app/server/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() user?: User = {};
+
+  @Output()  outerUser = new EventEmitter();
+//定义方法向父组件传值
+
+user?: User = {};
   constructor(private httpService: HttpService,
     public router: Router,
   ) { 
@@ -23,6 +27,7 @@ export class HeaderComponent implements OnInit {
 
     this.updateUser()
   }
+
 
 
   updateUser() {
@@ -84,5 +89,18 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/signin'])
     
   }
+
+
+  setParentUser(){
+    //向父组件传值
+    this.outerUser.emit('this.user')
+  }
+
+//   @Output() private outer = new EventEmitter();
+// //定义方法向父组件传值
+// setParent(){
+//     //向父组件传值
+//     this.outer.emit("我是子组件的数据")
+//   }
 
 }
