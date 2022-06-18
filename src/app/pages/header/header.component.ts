@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/server/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output()  outerUser = new EventEmitter();
+
 //定义方法向父组件传值
 
 user?: User = {};
@@ -91,10 +91,7 @@ user?: User = {};
   }
 
 
-  setParentUser(){
-    //向父组件传值
-    this.outerUser.emit('this.user')
-  }
+
 
 //   @Output() private outer = new EventEmitter();
 // //定义方法向父组件传值

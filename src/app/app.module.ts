@@ -57,6 +57,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { AuthService } from './server/auth.service';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 registerLocaleData(zh);
 
 
@@ -112,7 +114,9 @@ registerLocaleData(zh);
     NzAlertModule,
     NzNotificationModule,
     NzDropDownModule,
-    NzInputModule
+    NzInputModule,
+    NzSpaceModule,
+    NzMessageModule
   ],
   providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN },AuthService],
   bootstrap: [AppComponent]

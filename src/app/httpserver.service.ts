@@ -46,6 +46,15 @@ export class HttpService {
     return this.httpclient.get<any>(url);
   }
 
+  deleteUser(id:number) {
+   
+    const url = environment.apiBaseUrl + 'auth/' + id;
+    return this.httpclient.delete<any>(url);
+  }
+
+
+
+
   goodsFindAll(){
     
     const url = environment.apiBaseUrl + 'goods/' + 'findAll';
