@@ -16,8 +16,14 @@
     <br>
     <div class="likeone" >
      
+    
       
-        <mat-card class="example-card"  *ngFor="let item of [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1]">
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="85" [nzPageSize]="20" [nzShowTotal]="rangeTemplate"></nz-pagination>
+      <ng-template #rangeTemplate let-range="range" let-total>
+        {{ range[0] }}-{{ range[1] }} of {{ total }} items
+      </ng-template>
+      
+        <!-- <mat-card class="example-card"  *ngFor="let item of [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1]">
 
             <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
                 alt="Photo of a Shiba Inu">
@@ -34,6 +40,7 @@
                 <button mat-button>购买</button>
                 <button mat-button>收藏</button>
             </mat-card-actions>
-        </mat-card>
+        </mat-card> -->
+     
     </div>
 </div>

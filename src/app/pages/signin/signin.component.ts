@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { User, userOne } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private httpService: HttpService,
     private notification: NzNotificationService,
-    public router: Router) {
+    public router: Router,
+    private message: NzMessageService) {
     this.signUpform = this.formBuilder.group({
       account: ['',[Validators.minLength(2), Validators.maxLength(8)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(20)]],
@@ -46,11 +48,13 @@ export class SigninComponent implements OnInit {
   submit() {
 
     if (this.signUpform.get('account')?.errors) {
-      this.error = '账号名输入不正确'
+      this.createMessage('error',"账户名输入格式不正确")
+      this.error = '账号名格式输入不正确'
       return;
     }
 
     if (this.signUpform.get('password')?.errors) {
+      this.createMessage('error',"密码输入格式不正确")
       this.error = '密码输入不正确'
       return;
     }
@@ -102,13 +106,23 @@ export class SigninComponent implements OnInit {
       }
     )
   }
+  keyup(e:any){
+    if(e.keyCode === 13){
+      this.submit()
+    }
+  }
 
 
   createNotification(type: string): void {
     this.notification.create(
       type,
-      '创建成功',
-      '欢迎您使用自动发卡平台'
+      `创建成功`,
+      `${this.user.account}欢迎您使用自动发卡平台`
+      
     );
+  }
+
+  createMessage(type: string,msg: string): void {
+    this.message.create(type, `${msg}`);
   }
 }

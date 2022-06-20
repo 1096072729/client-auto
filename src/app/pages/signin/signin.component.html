@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div id="signin">
+<div id="signin" keyup="keyup($event)">
 
     <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signinformGroup">
       <mat-form-field appearance="outline">

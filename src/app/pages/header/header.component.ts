@@ -24,8 +24,8 @@ user?: User = {};
   }
 
   ngOnInit(): void {
-
-    this.updateUser()
+setTimeout(() =>this.updateUser(),500)
+    
   }
 
 
@@ -39,10 +39,10 @@ user?: User = {};
           this.user = data.user
         },
         error: error => {
-
+          this.user={}
+          this.user = {account:'未登录'}
           
           console.log('not found');
-          
           console.log(this.user)
         }
       }
@@ -66,7 +66,7 @@ user?: User = {};
   
     // const id: idInterface = { id: parseInt(localStorage.getItem('userid') as string) };
     const id=this.user?.userId
-    if (id==-1) {
+    if (!id) {
       return;
     }
     console.log('cancellation')
@@ -75,7 +75,7 @@ user?: User = {};
         console.log(data)
       }
     );
-    
+
     this.user = {account:'未登录'}
     // setTimeout(() =>this.router.navigate([""]),500)
     this.router.navigate([""])

@@ -59,6 +59,12 @@ import { AuthService } from './server/auth.service';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { FooterComponent } from './pages/footer/footer.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 registerLocaleData(zh);
 
 
@@ -74,6 +80,7 @@ registerLocaleData(zh);
     SearchheaderComponent,
     DetailedComponent,
     PersonalCenterComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,7 +123,12 @@ registerLocaleData(zh);
     NzDropDownModule,
     NzInputModule,
     NzSpaceModule,
-    NzMessageModule
+    NzMessageModule,
+    NzDescriptionsModule,
+    NzBadgeModule,
+    NzRadioModule,
+    NzImageModule,
+    NzPaginationModule
   ],
   providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN },AuthService],
   bootstrap: [AppComponent]

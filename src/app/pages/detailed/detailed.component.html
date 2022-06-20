@@ -61,9 +61,9 @@
             <div nz-col nzFlex="1"></div>
         </div>
 
-        
 
-        
+
+
 
         <!-- <nz-input-number [(ngModel)]="demoValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>  -->
     </div>
@@ -72,39 +72,42 @@
 
 
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
-            (nzOnCancel)="handleCancel()">
-            <ng-template #modalTitle>建立订单</ng-template>
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>建立订单</ng-template>
 
-            <ng-template #modalContent>
-                <p>购买物品：{{goods.goodsTitle}}</p>
-                <p>购买数量：{{demoValue}}</p>
-                <p>购买价格：{{goods.currentPrice}}</p>
-                <p>Modal Content</p>
-            </ng-template>
+    <ng-template #modalContent>
+        <p>购买物品：{{goods.goodsTitle}}</p>
+        <p>购买数量：{{demoValue}}</p>
+        <p>购买价格：{{goods.currentPrice}}</p>
+        <p>Modal Content</p>
+    </ng-template>
 
-            <ng-template #modalFooter>
+    <ng-template #modalFooter>
 
-                <button nz-button nzType="default" (click)="handleCancel()">取消订单</button>
-                <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确认购买</button>
-            </ng-template>
-        </nz-modal>
+        <button nz-button nzType="default" (click)="handleCancel()">取消订单</button>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确认购买</button>
+    </ng-template>
+</nz-modal>
 
 
 
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
-(nzOnCancel)="handleCancel()">
-<ng-template #modalTitle>建立订单</ng-template>
+<nz-modal [(nzVisible)]="showQRCode" [nzTitle]="payTitle" [nzContent]="payContent" [nzFooter]="payFooter" (nzOnCancel)="QRCodeCancel()">
+    <ng-template #payTitle>付款</ng-template>
 
-<ng-template #modalContent>
-    <p>购买物品：{{goods.goodsTitle}}</p>
-    <p>购买数量：{{demoValue}}</p>
-    <p>购买价格：{{goods.currentPrice}}</p>
-    <p>Modal Content</p>
-</ng-template>
+    <ng-template #payContent >
+        <img
+        nz-image
+        width="50%"
+        nzSrc="../../../assets/8792E8A0BB8BF664BECDEAB8A87874F5.jpg"
+        alt=""
+        style="margin-left: 25%;"
+      />
+        
+    </ng-template>
 
-<ng-template #modalFooter>
+    <ng-template #payFooter>
 
-    <button nz-button nzType="default" (click)="handleCancel()">取消订单</button>
-    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">确认购买</button>
-</ng-template>
+        <button nz-button nzType="default" (click)="QRCodeCancel()">取消订单</button>
+        <button nz-button nzType="primary" (click)="QRCodeOk()" [nzLoading]="isQRCodeConfirmLoading">确认购买</button>
+    </ng-template>
 </nz-modal>

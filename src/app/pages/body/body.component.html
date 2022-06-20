@@ -40,8 +40,8 @@
             <img class="likeheader" src="../../../assets/3e09da4f0c47e124.png" >
           
             <br>
-            <div class="likeone">
-                <mat-card class="example-card" *ngFor="let item of goodsList1" routerLink="/index/detailed" >
+            <div class="likeone" >
+                <mat-card class="example-card" *ngFor="let item of goodsList1"  [routerLink]="['/detailed/'+item.goodsId]" >
 
                     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
                         alt="Photo of a Shiba Inu">
@@ -58,6 +58,8 @@
                         <button mat-button>收藏</button>
                     </mat-card-actions>
                 </mat-card>
+
+              
             </div>
         </div>
 
@@ -65,18 +67,18 @@
             <img class="likeheader" src="../../../assets/e4be616c2cf8d6e0.png" >
             
             <br>
-            <div class="likeone">
-                <mat-card class="example-card" *ngFor="let item of goodsList1" routerLink="/index/detailed" >
+            <div class="likeone" >
+                <mat-card class="example-card" *ngFor="let item of goodsList1"  [routerLink]="['/detailed/'+item.goodsId]" >
 
                     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
                         alt="Photo of a Shiba Inu">
                     <mat-card-content>
                         <p>
-                           {{item.goodsTitle}}
-                        </p>
-                        <p>
-                            {{item.goodsDes}}
-                        </p>
+                            {{item.goodsTitle}}
+                         </p>
+                         <p>
+                             {{item.goodsDes}}
+                         </p>
                     </mat-card-content>
                     <mat-card-actions>
                         <button mat-button>购买</button>
@@ -84,7 +86,7 @@
                     </mat-card-actions>
                 </mat-card>
 
-               
+              
             </div>
         </div>
 

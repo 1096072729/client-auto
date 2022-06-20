@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { retry } from 'rxjs';
 import { User, userOne } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
 
@@ -74,11 +75,14 @@ export class SignUpComponent implements OnInit {
       {
         next: data => {
           console.log(data)
-          console.log('注册成功' + this.user.account)
+          console.log('注册个人账户成功' + this.user.account)
           this.error = '';
           localStorage.setItem('useraccount', this.user.account as string);
           this.createNotification('success');
-          this.get()
+          this.get();
+          console.log(this.user.account)
+          console.log('this.user.account')
+          this.createCapital();
         },
         error: (error) => {
           console.log(error)
@@ -87,9 +91,26 @@ export class SignUpComponent implements OnInit {
       }
     )
 
+
+
+
   }
 
-
+  createCapital() {
+    console.log('createCapital');
+    this.httpService.capitalCreate(this.user).subscribe(
+      {
+        next: (data) => {
+          console.log('创建资金账户成功')
+        },
+        error: (error) => {
+          console.log('创建资金账户失败')
+          retry(3)
+          console.log(error)
+        }
+      }
+    )
+  }
 
 
   get() {
@@ -100,8 +121,8 @@ export class SignUpComponent implements OnInit {
           this.user = Userone[0];
           const id = Userone[0].userId as number;
           localStorage.setItem('userid', id.toString());
-          
-          setTimeout(() =>  this.router.navigate(['']),1000)
+
+          setTimeout(() => this.router.navigate(['']), 1000)
         },
         error: Error => {
           console.log(Error)
@@ -109,6 +130,12 @@ export class SignUpComponent implements OnInit {
         }
       }
     )
+  }
+
+  keyup(e:any){
+    if(e.keyCode === 13){
+      this.submit()
+    }
   }
 
 

@@ -1,7 +1,7 @@
 <app-header></app-header>
-<div id="signup"  >
+<div id="signup"  keyup="keyup($event)">
 
-  <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signupformGroup">
+  <form [formGroup]="signUpform" (ngSubmit)="submit()" class="signupformGroup" >
     <mat-form-field appearance="outline"   >
       <mat-label>输入你的账户名</mat-label>
       <input matInput #account placeholder="pat@example.com" formControlName="account"  required >
