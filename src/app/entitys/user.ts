@@ -3,6 +3,7 @@
 export interface User{
 userId?:number;
 name?:string;
+avatarUrl?:string;
 account?:string;
 password?:string;
     sex?: string,

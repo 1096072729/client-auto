@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
 import { idInterface } from 'src/app/interfaces/id';
-import { AuthService } from 'src/app/server/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
 //定义方法向父组件传值
 
-user?: User = {};
+user: User = {};
   constructor(private httpService: HttpService,
     public router: Router,
   ) { 
@@ -24,7 +24,8 @@ user?: User = {};
   }
 
   ngOnInit(): void {
-setTimeout(() =>this.updateUser(),500)
+    this.updateUser()
+// setTimeout(() =>this.updateUser(),500)
     
   }
 

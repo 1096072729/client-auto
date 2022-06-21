@@ -36,6 +36,7 @@
 }
 
 .searchbox button{
+    margin-top: 0.5px;
     height: 31px;
     margin-right: 1px;
     width: 60px;
@@ -47,4 +48,8 @@
 }
 .Searchexamples span{
     margin: 10px 10px;
+}
+
+.Searchexamples span:hover{
+    color: #ec3006;
 }

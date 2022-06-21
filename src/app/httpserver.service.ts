@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BuyRecords } from './entitys/bugRecords.entity';
 import { Capital } from './entitys/capital.entity';
 import { Goods } from './entitys/goods';
+import { Mart } from './entitys/mart.entity';
 import { User } from './entitys/user';
 import { idInterface } from './interfaces/id';
 
@@ -75,6 +77,13 @@ export class HttpService {
     return this.httpclient.get<any>(url);
   }
 
+searchGoods(page:number,searchValue:string):Observable<any>{
+  // http://120.55.54.248:3000/goods/paging/1
+const url = environment.apiBaseUrl + 'goods/paging/'+page;
+
+const content:any={searchValue: searchValue}
+return this.httpclient.post<any>(url,content);
+}
 
   capitalCreate(user:User){
     // http://120.55.54.248:3000/capital/create
@@ -98,15 +107,56 @@ export class HttpService {
     return this.httpclient.delete(url)
   }
 
+  patchCapital(capital: Capital){
+    // http://120.55.54.248:3000/capital/12
+    console.log('patchCapital')
+    const url = environment.apiBaseUrl + 'capital/'+capital.cid;
+    return this.httpclient.patch(url,capital)
+  }
+
   createBuyRecords(user: User,goods: Goods){
    
      // http://120.55.54.248:3000/buyRecords/create
-     console.log('createBuyRecords')
-     user=Object.assign({...user,...goods}) 
+    //  console.log('createBuyRecords')
+    //  user=Object.assign({...user,...goods}) 
      const content:any={ userId: user.userId,goodsId: goods.goodsId,buyPrice: goods.currentPrice}
      const url = environment.apiBaseUrl + 'buyRecords/'+'create';
      return this.httpclient.post(url, content)
 
  }
+
+buyRecordsByUser(user: User): Observable<BuyRecords[]>{
+  //  http://120.55.54.248:3000/buyRecords/user/78
+  console.log('buyRecordsByUser')
+  const url = environment.apiBaseUrl +'buyRecords/user/'+user.userId
+  return this.httpclient.get<BuyRecords[]>(url)
+}
+
+ upload(img:File[]):Observable<any>{
+  // http://120.55.54.248:3000/upload
+console.log('upload')
+const url=environment.apiBaseUrl+'upload';
+return this.httpclient.post(url, img)
+ }
+
+ createStar(user: User,goods: Goods){
+   
+  // http://120.55.54.248:3000/buyRecords/create
+
+  const content:any={ userId: user.userId,goodsId: goods.goodsId,starPrice: goods.currentPrice}
+  console.log(content)
+  console.log('content')
+  const url = environment.apiBaseUrl + 'star/'+'create';
+  return this.httpclient.post(url, content);
+
+
+
+ }
+starFindByUser(user:User):Observable<Mart[]>{
+
+  // http://120.55.54.248:3000/star/user/1
+const url = environment.apiBaseUrl + 'star/user/'+user.userId
+return this.httpclient.get<Mart[]>(url)
+}
 
 }

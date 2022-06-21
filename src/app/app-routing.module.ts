@@ -13,21 +13,23 @@ const routes: Routes = [
   {path:'signup',component: SignUpComponent},
   {path:'signin',component: SigninComponent},
   {path:'personalcenter',component: PersonalCenterComponent},
+  {path:'search',component: SearchComponent},
   {path:'index',component: IndexComponent,children:[
-    {path:'search',component: SearchComponent},
     {path:'detailed',component: DetailedComponent},
     {path:'',component: BodyComponent}
   ]},
   
   {path:'',component: IndexComponent,children:[
-    {path:'search',component: SearchComponent},
+  
     {path:'detailed/:goodsId',component: DetailedComponent},
     {path:'',component: BodyComponent}
   ]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'top', // 这里管跳转路由后页面始终在顶部
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

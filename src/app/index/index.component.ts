@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-
+a='asd'
   constructor() { }
 
   ngOnInit(): void {
   }
+  getgoodsList(e:any){
+console.log(e)
+  }
+
 
 }

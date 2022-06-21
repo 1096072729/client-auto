@@ -6,11 +6,24 @@
         <div class="body">
             <div class="person">
                 <div class="pensonPhotoDiv">
-                    <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                        [nzSize]="56">
-                    </nz-avatar>
 
-                    <span>{{user.account}}</span>
+                    <nz-avatar nzIcon="user"
+                        [nzSrc]="user.avatarUrl?'http://120.55.54.248:80/'+user.avatarUrl:'//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'"
+                        [nzSize]="56"></nz-avatar>
+                    <div class="">
+                        <nz-upload class="avatar-uploader" nzAction="http://120.55.54.248:3000/upload"
+                            [nzHeaders]="{ authorization: 'authorization-text' }" nzListType="picture-card"
+                            [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
+                            (nzChange)="handleChange($event)">
+                            <ng-container *ngIf="!avatarUrl">
+                                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                                <div class="ant-upload-text">上传头像</div>
+                            </ng-container>
+                            <img class="uploadimg" *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+                        </nz-upload>
+                    </div>
+
+                    <span class="account">{{user.account}}</span>
                     <!-- <button *nzSpaceItem nz-button nzType="default" class="userbtn">{{user.account}}</button> -->
                     <!-- <button *nzSpaceItem nz-button nzType="primary" class="userbtn"> {{user.grade}}</button>
                         <button *nzSpaceItem nz-button nzType="default" class="userbtn">Default</button>
@@ -25,16 +38,66 @@
                 <mat-tab-group>
                     <mat-tab label="主页">
                         <div style="background-color: #c68181;">
-                            <span>asddddddddd</span>
-                            <span>asddddddddd</span>
-                            <span>asddddddddd</span>
+
                         </div>
 
                     </mat-tab>
-                    <mat-tab label="收藏"> Content 2 </mat-tab>
-                    <mat-tab label="购买记录">
-                         Content 3 
 
+<!-- 
+                    <mat-tab label="收藏">
+                        <mat-card class="example-card" *ngFor="let item of martGoodsList;let i=index"   >
+
+                       
+                                <img mat-card-image [src]="'http://120.55.54.248:80/'+item.goodsPic"
+                                alt="Photo of a Shiba Inu" [routerLink]="['/detailed/'+item.goodsId]">
+                            <mat-card-content>
+                                <p>
+                                    {{item.goodsTitle}}
+                                 </p>
+                                 <p>
+                                     {{item.goodsDes}}
+                                 </p>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-button>购买</button>
+                                <button mat-button (click)="star(item)">收藏</button>
+                            </mat-card-actions>
+                        </mat-card>
+                        <div style="text-align:center;">
+                            <nz-pagination [(nzPageIndex)]="martPage" [nzTotal]="martList.length"
+                                [nzPageSize]="5" [nzShowTotal]="rangeTemplate" (nzPageIndexChange)="martPageChange()">
+                            </nz-pagination>
+                            <ng-template #rangeTemplate let-range="range" let-total>
+                                {{ range[0] }}-{{ range[1] }} of {{ total }} items
+                            </ng-template>
+                        </div>
+                    </mat-tab> -->
+
+
+
+
+                    <mat-tab label="购买记录">
+
+                        <nz-descriptions [nzTitle]="'购买商品:'+goodslist[i].goodsTitle" nzBordered
+                            *ngFor="let item of buyRecordspa;let i=index">
+                            <nz-descriptions-item nzTitle="商品名称">{{goodslist[i].goodsTitle}}</nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="购买价格">{{item.buyPrice}}</nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="购买类型">{{goodslist[i].category}}</nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="购买时间">{{item.buyDate}}</nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="链接">{{goodslist[i].encryptedLink}}</nz-descriptions-item>
+
+
+                        </nz-descriptions>
+
+
+                        <div style="text-align:center;">
+                            <nz-pagination [(nzPageIndex)]="buyRecordspage" [nzTotal]="buyRecordslist.length"
+                                [nzPageSize]="5" [nzShowTotal]="rangeTemplate" (nzPageIndexChange)="pageChange()">
+                            </nz-pagination>
+                            <ng-template #rangeTemplate let-range="range" let-total>
+                                {{ range[0] }}-{{ range[1] }} of {{ total }} items
+                            </ng-template>
+                        </div>
 
                     </mat-tab>
                     <mat-tab label="删除账号">
@@ -42,7 +105,8 @@
 
                             <button nz-button nzType="primary" nzDanger (click)="showModal()">
                                 <span>删除账号</span></button>
-                            <nz-modal [(nzVisible)]="deleteMadal" nzTitle="是否确定删除账号" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+                            <nz-modal [(nzVisible)]="deleteMadal" nzTitle="是否确定删除账号" [nzFooter]="modalFooter"
+                                (nzOnCancel)="handleCancel()">
                                 <ng-container *nzModalContent>
                                     <p>删除账号是一种不可恢复的行为，请仔细考虑清楚</p>
                                     <p>请输入您的密码：</p>
@@ -63,25 +127,26 @@
                             </nz-modal>
                         </div>
                     </mat-tab>
-                    <mat-tab label="个人信息" >
+                    <mat-tab label="个人信息">
 
-                        <nz-descriptions [nzTitle]="'尊敬的用户：'+user.account" nzBordered >
+                        <nz-descriptions [nzTitle]="'尊敬的用户：'+user.account" nzBordered>
                             <nz-descriptions-item nzTitle="账户名">
                                 {{user.account}}
+                                <button nz-button nzType="primary" (click)="showchangePasswordModal()">修改密码</button>
                                 <!-- <input nz-input placeholder="Basic usage" [(ngModel)]="user.account" disabled  /> -->
                             </nz-descriptions-item>
                             <nz-descriptions-item nzTitle="昵称">
                                 <!-- {{user.name?user.name:'未填写'}} -->
-                                <input nz-input placeholder="未填写点击修改" [(ngModel)]="user.name" nzBorderless  />
+                                <input nz-input placeholder="未填写点击修改" [(ngModel)]="user.name" nzBorderless />
                             </nz-descriptions-item>
                             <nz-descriptions-item nzTitle="性别">
                                 <nz-radio-group [(ngModel)]="user.sex">
-                                    <label nz-radio nzValue="男">男  </label>
+                                    <label nz-radio nzValue="男">男 </label>
                                     <label nz-radio nzValue="女">女</label>
                                     <label nz-radio nzValue="">其他</label>
-                                  
-                                  </nz-radio-group>
-                              
+
+                                </nz-radio-group>
+
 
                                 <!-- <input nz-input placeholder="未填写点击修改" [(ngModel)]="user.sex" nzBorderless /> -->
                             </nz-descriptions-item>
@@ -117,28 +182,31 @@
                         <nz-descriptions [nzTitle]="'尊敬的用户：'+capital.account" nzBordered>
                             <nz-descriptions-item nzTitle="账户名">{{capital.account}}</nz-descriptions-item>
                             <nz-descriptions-item nzTitle="支付宝账号" [nzSpan]="2">{{capital.alipay}}</nz-descriptions-item>
-                           
 
-                            <nz-descriptions-item nzTitle="余额">{{capital.balance}}</nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="总收入" >
+
+                            <nz-descriptions-item nzTitle="余额">
+                                {{capital.balance}}
+                                <button nz-button nzType="primary" (click)="showQRCodeModal()">充值</button>
+                            </nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="总收入">
                                 {{capital.income}}
                             </nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="充值金额" >
+                            <nz-descriptions-item nzTitle="充值金额">
                                 {{capital.recharge}}
                             </nz-descriptions-item>
                             <nz-descriptions-item nzTitle="需要付费">
                                 {{capital.pay}}
                             </nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="退款金额" >
+                            <nz-descriptions-item nzTitle="退款金额">
                                 {{capital.withdrawal}}
                             </nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="消费金额" >
+                            <nz-descriptions-item nzTitle="消费金额">
                                 {{capital.consumptionAmount}}
                             </nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="冻结金额" >
+                            <nz-descriptions-item nzTitle="冻结金额">
                                 {{capital.freezingOfFunds}}
                             </nz-descriptions-item>
-                            <nz-descriptions-item nzTitle="账号安全等级" >
+                            <nz-descriptions-item nzTitle="账号安全等级">
                                 <nz-badge nzStatus="success" nzText="非常健康"></nz-badge>
                             </nz-descriptions-item>
                         </nz-descriptions>
@@ -151,5 +219,64 @@
         </div>
 
 
+        <app-footer></app-footer>
     </div>
 </div>
+
+
+<nz-modal [(nzVisible)]="changePasswordMadal" nzTitle="修改账号密码" [nzFooter]="changePasswordFooter"
+    (nzOnCancel)="changePasswordCancel()">
+    <ng-container *nzModalContent>
+        <p>输入你的旧密码：</p>
+        <nz-input-group [nzSuffix]="suffixTemplate">
+            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="input password"
+                [(ngModel)]="oldPassword" />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"></i>
+        </ng-template>
+        <nz-divider></nz-divider>
+        <p>输入你的新密码：</p>
+        <nz-input-group [nzSuffix]="suffixTemplate">
+            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="input password"
+                [(ngModel)]="newPassword" />
+        </nz-input-group>
+        <ng-template #suffixTemplate>
+            <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"></i>
+        </ng-template>
+    </ng-container>
+    <ng-template #changePasswordFooter>
+
+        <button nz-button nzType="default" (click)="changePasswordCancel()">再仔细考虑</button>
+        <button nz-button nzType="primary" (click)="changePasswordOk()">修改密码</button>
+    </ng-template>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="showQRCode" [nzTitle]="payTitle" [nzContent]="payContent" [nzFooter]="payFooter"
+    (nzOnCancel)="QRCodeCancel()">
+    <ng-template #payTitle>付款</ng-template>
+
+    <ng-template #payContent>
+        <img nz-image width="50%" nzSrc="../../../assets/8792E8A0BB8BF664BECDEAB8A87874F5.jpg" alt=""
+            style="margin-left: 25%;" />
+        <nz-divider nzText="选择充值金额"></nz-divider>
+        <nz-row>
+            <nz-col nzSpan="19">
+                <nz-slider [nzMin]="1" [nzMax]="100" [(ngModel)]="Rechargevalue"></nz-slider>
+            </nz-col>
+            <div nz-col nzSpan="4">
+                <nz-input-number [nzMin]="1" [nzMax]="100" [ngStyle]="{ marginLeft: '16px' }"
+                    [(ngModel)]="Rechargevalue"></nz-input-number>
+            </div>
+        </nz-row>
+    </ng-template>
+
+    <ng-template #payFooter>
+
+        <button nz-button nzType="default" (click)="QRCodeCancel()">取消订单</button>
+        <button nz-button nzType="primary" (click)="QRCodeOk()" [nzLoading]="isQRCodeConfirmLoading">确认购买</button>
+    </ng-template>
+</nz-modal>

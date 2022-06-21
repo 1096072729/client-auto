@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Goods, goodsone } from 'src/app/entitys/goods';
 import { User } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-detailed',
@@ -16,7 +18,7 @@ export class DetailedComponent implements OnInit {
   // 'https://gd4.alicdn.com/imgextra/i4/2200641045810/O1CN012AP26z1sn1rtVwo3v_!!2200641045810.jpg_400x400.jpg',
   // 'https://gd4.alicdn.com/imgextra/i4/2200641045810/O1CN012AP26z1sn1rtVwo3v_!!2200641045810.jpg_400x400.jpg'];
 
-  array = [''];
+  array:string[] = [];
   goods: Goods = {};
   demoValue = 1;
   isVisible = false;
@@ -26,7 +28,9 @@ export class DetailedComponent implements OnInit {
   isQRCodeConfirmLoading = false;
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private httpService: HttpService) { }
+    private httpService: HttpService,
+    private message: NzMessageService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((res) => {
@@ -36,7 +40,10 @@ export class DetailedComponent implements OnInit {
         {
           next: data => {
             this.goods = data;
-            this.array = this.goods.goodsPic?.split('-') as string[];
+            // this.array = this.goods.goodsPic?.split('-') as string[];
+           this.goods.goodsPic?.split('$').map((p)=>{this.array.push( 'http://120.55.54.248:80/'+p)})
+           console.log('array')
+           console.log(this.array)
           },
           error: error => {
             console.log(error);
@@ -47,12 +54,18 @@ export class DetailedComponent implements OnInit {
 
     )
 
+  
+
     this.getUser()
     // const goodsId = this.route.snapshot.paramMap.get('goodsId');
 
 
 
     // this.hero$ = this.service.getHero(heroId);
+  }
+
+  money(){
+    return this.goods.currentPrice as number *this.demoValue
   }
 
   showModal(): void {
@@ -87,7 +100,7 @@ export class DetailedComponent implements OnInit {
     setTimeout(() => {
       this.showQRCode = false;
       this.isQRCodeConfirmLoading = false;
-
+      this.message.create('success', '购买成功')
       console.log('QRCodeOk')
     }, 1000);
   }
@@ -109,7 +122,6 @@ export class DetailedComponent implements OnInit {
       }
     }
     )
-
   }
 
   getUser() {
@@ -129,7 +141,24 @@ export class DetailedComponent implements OnInit {
         }
       }
     )
+  }
 
+  
+  star(goods:Goods){
+    
+    this.httpService.createStar(this.authService.user,goods).subscribe({
+      next:data => {
+        this.createMessage('success', '收藏成功')
+      },
+      error: error => {
+        console.log(error)
+        this.createMessage('error', '收藏失败')
+      }
+    })
+      }
 
+  //创建一个Message
+  createMessage(type: string, message: string): void {
+    this.message.create(type, `${message}`);
   }
 }

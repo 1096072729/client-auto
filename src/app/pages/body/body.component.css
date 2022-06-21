@@ -6,9 +6,7 @@
    width: 300px;
 
 }
-.AutoPlay{
-    flex: 1;
-}
+
 
 [nz-carousel-content] {
     border-radius: 10px;

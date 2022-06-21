@@ -36,6 +36,12 @@ width: 100%;
     bottom:  40px;
 }
 
+.uploadpic{
+    height: 56px;
+    position: absolute;
+    width: 56px;
+}
+
 
 .deleteUser{
     margin: 0 auto;
@@ -46,6 +52,16 @@ width: 100%;
 }
 
 
+.example-card {
+    width:29% ;
+    border-radius: 30px;
+    margin:20px 2%
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
 
 i {
     cursor: pointer;
@@ -63,4 +79,25 @@ i {
   }
 
 
+  :host ::ng-deep .avatar-uploader > .ant-upload  {
+   opacity:0.0;
+      position: relative;
+      right: 56px;
+      border-radius: 50%;
+    width: 56px;
+    height: 56px;
+  }
+  :host ::ng-deep .avatar-uploader > .ant-upload:hover{
+    opacity:0.5;
+  }
+  /* :host ::ng-deep .avatar-uploader > .ant-upload */
+
+  .uploadimg{
+    border-radius: 50%;
+  }
+  .account{
+    position: relative;
+    right: 56px;
+    top: 20px;
+  }
 

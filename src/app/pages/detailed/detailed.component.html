@@ -3,7 +3,7 @@
         <nz-carousel [nzEffect]="'fade'">
             <div nz-carousel-content *ngFor="let index of array">
                 <img class="showimg" [src]="index" alt="">
-                <!-- <h3>{{ index }}</h3> -->
+          
             </div>
         </nz-carousel>
 
@@ -54,7 +54,7 @@
             </div>
             <div nz-col nzFlex="1"></div>
             <div nz-col nzFlex="1">
-                <button nz-button nzValue="dashed" nzSize="default" nzType="primary" class="follow">
+                <button nz-button nzValue="dashed" nzSize="default" nzType="primary" class="follow" (click)="star(goods)">
                     收藏
                 </button>
             </div>
@@ -79,7 +79,7 @@
         <p>购买物品：{{goods.goodsTitle}}</p>
         <p>购买数量：{{demoValue}}</p>
         <p>购买价格：{{goods.currentPrice}}</p>
-        <p>Modal Content</p>
+        <p>共需要支付：{{money()}}</p>
     </ng-template>
 
     <ng-template #modalFooter>

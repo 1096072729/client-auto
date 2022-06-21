@@ -55,7 +55,7 @@ import { PersonalCenterComponent } from './pages/personal-center/personal-center
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { AuthService } from './server/auth.service';
+import { AuthService } from './service/auth.service';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -65,6 +65,10 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { FooterComponent } from './pages/footer/footer.component';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzBackTopModule } from 'ng-zorro-antd/back-top';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 registerLocaleData(zh);
 
 
@@ -128,7 +132,11 @@ registerLocaleData(zh);
     NzBadgeModule,
     NzRadioModule,
     NzImageModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzSliderModule,
+    NzBackTopModule,
+    NzCardModule,
+    NzUploadModule
   ],
   providers: [HttpService, { provide: NZ_I18N, useValue: zh_CN },AuthService],
   bootstrap: [AppComponent]

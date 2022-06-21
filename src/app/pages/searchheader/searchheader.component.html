@@ -1,19 +1,16 @@
 <div class="first">
-    <img src="../../../assets/logo.png">
-    <div class="search">
+    <img src="../../../assets/logo.png" routerLink="">
+    <div class="search"  >
         <div class="searchbox">
-            <input>
-            <button mat-flat-button color="warn" routerLink="/index/search">搜索</button>
+            <input [(ngModel)]="searchValue" >
+            <button  mat-flat-button color="warn" [routerLink]="['/search/',{searchValue:searchValue}]" (click)="search()">搜索</button>
+            
         </div >
         <div class="Searchexamples">
-            <span>asdad</span>
-            <span>asdad</span>
-            <span>asdad</span>
-            <span>asdad</span>
-            <span>asdad</span>
-            <span>asdad</span>
+            <span *ngFor="let item of searchlist;let i =index" [routerLink]="['/search/',{searchValue:item}]" (click)="listsearch(i)">{{item}}</span>
             
-
+           
+        
         </div>
     </div>
 </div>
