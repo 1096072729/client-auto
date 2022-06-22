@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Goods, goodsone } from 'src/app/entitys/goods';
+import { Goods } from 'src/app/entitys/goods';
 import { User } from 'src/app/entitys/user';
 import { HttpService } from 'src/app/httpserver.service';
 import { AuthService } from 'src/app/service/auth.service';
@@ -18,7 +18,7 @@ export class DetailedComponent implements OnInit {
   // 'https://gd4.alicdn.com/imgextra/i4/2200641045810/O1CN012AP26z1sn1rtVwo3v_!!2200641045810.jpg_400x400.jpg',
   // 'https://gd4.alicdn.com/imgextra/i4/2200641045810/O1CN012AP26z1sn1rtVwo3v_!!2200641045810.jpg_400x400.jpg'];
 
-  array:string[] = [];
+  array: string[] = [];
   goods: Goods = {};
   demoValue = 1;
   isVisible = false;
@@ -26,6 +26,8 @@ export class DetailedComponent implements OnInit {
   user: User = {};
   showQRCode = false;
   isQRCodeConfirmLoading = false;
+  showurl = false
+  isShowUrlConfirmLoading = false;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private httpService: HttpService,
@@ -41,9 +43,9 @@ export class DetailedComponent implements OnInit {
           next: data => {
             this.goods = data;
             // this.array = this.goods.goodsPic?.split('-') as string[];
-           this.goods.goodsPic?.split('$').map((p)=>{this.array.push( 'http://120.55.54.248:80/'+p)})
-           console.log('array')
-           console.log(this.array)
+            this.goods.goodsPic?.split('$').map((p) => { this.array.push('http://120.55.54.248:80/' + p) })
+            console.log('array')
+            console.log(this.array)
           },
           error: error => {
             console.log(error);
@@ -54,7 +56,7 @@ export class DetailedComponent implements OnInit {
 
     )
 
-  
+
 
     this.getUser()
     // const goodsId = this.route.snapshot.paramMap.get('goodsId');
@@ -64,12 +66,27 @@ export class DetailedComponent implements OnInit {
     // this.hero$ = this.service.getHero(heroId);
   }
 
-  money(){
-    return this.goods.currentPrice as number *this.demoValue
+  money() {
+    return this.goods.currentPrice as number * this.demoValue
   }
 
   showModal(): void {
     this.isVisible = true;
+  }
+  balance() {
+    this.isVisible=false
+    const price = this.goods.currentPrice as number
+    console.log(this.authService.capital.balance)
+   console.log('this.authService.capital.balance')
+    if (this.authService.capital.balance as number > price) {
+      this.authService.capital.balance = this.authService.capital.balance as number - price;
+      this.showUrlModal()
+      this.authService.updateCapital()
+    }
+    else {
+      this.message.create('error', '账户余额不足，请前往个人中心充值')
+    }
+
   }
 
   handleOk(): void {
@@ -92,6 +109,7 @@ export class DetailedComponent implements OnInit {
     this.showQRCode = true;
   }
 
+
   QRCodeOk(): void {
     this.isQRCodeConfirmLoading = true;
     for (let i = 0; i < this.demoValue; i++) {
@@ -100,6 +118,7 @@ export class DetailedComponent implements OnInit {
     setTimeout(() => {
       this.showQRCode = false;
       this.isQRCodeConfirmLoading = false;
+      this.showUrlModal()
       this.message.create('success', '购买成功')
       console.log('QRCodeOk')
     }, 1000);
@@ -143,11 +162,26 @@ export class DetailedComponent implements OnInit {
     )
   }
 
-  
-  star(goods:Goods){
-    
-    this.httpService.createStar(this.authService.user,goods).subscribe({
-      next:data => {
+
+  showUrlModal(): void {
+    this.showurl = true;
+  }
+
+  showUrlOk(): void {
+    this.isShowUrlConfirmLoading = true;
+    setTimeout(() => {
+      this.showurl = false;
+      this.isShowUrlConfirmLoading = false;
+      this.message.create('success', '欢迎您再次购买')
+    }, 1000);
+
+  }
+
+
+  star(goods: Goods) {
+
+    this.httpService.createStar(this.authService.user, goods).subscribe({
+      next: data => {
         this.createMessage('success', '收藏成功')
       },
       error: error => {
@@ -155,7 +189,7 @@ export class DetailedComponent implements OnInit {
         this.createMessage('error', '收藏失败')
       }
     })
-      }
+  }
 
   //创建一个Message
   createMessage(type: string, message: string): void {

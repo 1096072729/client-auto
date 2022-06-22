@@ -8,7 +8,7 @@ import { Goods } from 'src/app/entitys/goods';
 })
 export class SearchheaderComponent implements OnInit {
   @Output() public searchChange = new EventEmitter();
-  searchlist:string[]=['大萝卜','小飞机','大侠','侠客','奢侈品']
+  searchlist:string[]=['微信','虚拟','软件','账号','充值卡']
   searchValue:string='';
   constructor() { }
 

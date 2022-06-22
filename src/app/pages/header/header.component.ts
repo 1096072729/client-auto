@@ -74,10 +74,11 @@ user: User = {};
     this.httpService.userSignOut().subscribe(
       data => {
         console.log(data)
+        this.user={}
       }
     );
 
-    this.user = {account:'未登录'}
+  
     // setTimeout(() =>this.router.navigate([""]),500)
     this.router.navigate([""])
     

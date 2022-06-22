@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { BuyRecords } from './entitys/bugRecords.entity';
 import { Capital } from './entitys/capital.entity';
 import { Goods } from './entitys/goods';
-import { Mart } from './entitys/mart.entity';
+import {  Star } from './entitys/mart.entity';
 import { User } from './entitys/user';
 import { idInterface } from './interfaces/id';
 
@@ -152,11 +152,17 @@ return this.httpclient.post(url, img)
 
 
  }
-starFindByUser(user:User):Observable<Mart[]>{
+starFindByUser(user:User):Observable<Star[]>{
 
   // http://120.55.54.248:3000/star/user/1
 const url = environment.apiBaseUrl + 'star/user/'+user.userId
-return this.httpclient.get<Mart[]>(url)
+return this.httpclient.get<Star[]>(url)
+}
+
+deleteStar(star:Star){
+  // http://120.55.54.248:3000/star/1
+const url = environment.apiBaseUrl + 'star/'+star.starId
+return this.httpclient.delete<Star[]>(url)
 }
 
 }

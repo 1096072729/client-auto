@@ -1,4 +1,4 @@
-export interface Mart{  
+export interface Star{  
     starId: string,
     userId: number,
     goodsId: number,
